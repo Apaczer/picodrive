@@ -942,6 +942,10 @@ static const char *mgn_opt_fmchip(int id, int *offs)
 	return fm_chips[chip];
 }
 
+static const char *men_undither[] = { "OFF", "weak", "medium", "strong", NULL };
+static const char h_undither[] = "Identify dithered areas and apply smoothing,\n"
+				"only available with 16bit accurate renderer";
+
 static const char h_renderer[] = "16bit is more accurate, 8bit is faster";
 static const char h_fmsound[]  = "Disabling improves performance, but breaks sound";
 static const char h_fmchips[]  = "Old Mega Drive models have YM2612, newer have YM3438\n"
@@ -954,6 +958,7 @@ static const char h_picopen[]  = "Enabling resets Pico display and d-pad input b
 static menu_entry e_menu_md_options[] =
 {
 	mee_enum_h    ("Renderer",                  MA_OPT_RENDERER, currentConfig.renderer, renderer_names, h_renderer),
+	mee_enum_h    ("Dither removal",            MA_OPT2_UNDITHER, PicoIn.undither, men_undither, h_undither),
 	mee_onoff_h   ("FM audio",                  MA_OPT2_ENABLE_FM, PicoIn.opt, POPT_EN_FM, h_fmsound),
 	mee_cust_h    ("FM chip",                   MA_OPT2_FM_CHIP, mh_opt_fmchip, mgn_opt_fmchip, h_fmchips),
 	mee_onoff_h   ("FM filter",                 MA_OPT_FM_FILTER, PicoIn.opt, POPT_EN_FM_FILTER, h_fmfilter),
